@@ -1,14 +1,14 @@
-from typing import TypeVar, Callable, Dict, Set, Any
+from typing import TypeVar, Type, Callable, Dict, Set, Any, overload
 
 from mopyx import rendering
 from mopyx.computed_property import ComputedProperty
 from mopyx.decorator_action import action
 from mopyx.proxy_list import ListModelProxy
 
-T = TypeVar("T")
+T = TypeVar("T", bound=Type)
 
 
-def model(base: Callable[..., T]) -> Callable[..., T]:
+def model(base: T) -> T:
     class ModelProxy(base):  # type: ignore
         """
         Tracks who was rendered from what properties.
